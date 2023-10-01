@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="add.css" text="text/css"/>
+<head>
+    <title>Flavor Finesse</title>
+</head>
+<body class="wrap">
+    <div class="navbar">
+        <a class="active">Flavor Finesse</a>
+    </div>
+    <h1>Add A New Recipe</h1>
+    <div class="content">
+        <form id="recipe-form">
+            <label for="recipe-name">Recipe Name:</label>
+            <input type="text" id="recipe-name" required>
+
+            <label for="recipe-image">Recipe Image Link:</label>
+            <input type="text" id="recipe-image" required>
+
+            <label for="ingredients">Ingredients:</label>
+            <div id="ingredient-list">
+                <div class="ingredient-item">
+                    <input type="text" class="ingredient" required>
+                    <!-- <button class="negative" type="button" class="remove-ingredient">-</button> -->
+                    <button class="positive" type="button" id="add-ingredient">+</button>
+
+                </div>
+            </div>
+
+            <label for="directions">Directions:</label>
+            <div id="direction-list">
+                <div class="direction-item">
+                    <input type="text" class="direction" required>
+                    <!-- <button class="negative" type="button" class="remove-direction">-</button> -->
+                    <button class="positive" type="button" id="add-direction">+</button>
+                </div>
+            </div>
+
+            <button id="submit" type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+    
+
+
+
+
+
+
+
+    <script>
+        //add ingredient
+        document.getElementById('add-ingredient').addEventListener('click', function () {
+            const ingredientList = document.getElementById('ingredient-list');
+            const newIngredientItem = document.createElement('div');
+            newIngredientItem.innerHTML = `
+                <input type="text" class="ingredient" required>
+                <button type="button" class="negative">-</button>
+            `;
+            ingredientList.appendChild(newIngredientItem);
+        });
+
+        // remove ingredient
+        document.getElementById('recipe-form').addEventListener('click', function (e) {
+            if (e.target.classList.contains('negative')) {
+                e.target.parentElement.remove();
+            }
+        });
+
+        // add direction
+        document.getElementById('add-direction').addEventListener('click', function () {
+            const directionList = document.getElementById('direction-list');
+            const newDirectionItem = document.createElement('div');
+            newDirectionItem.innerHTML = `
+                <input type="text" class="direction" required>
+                <button type="button" class="negative">-</button>
+            `;
+            directionList.appendChild(newDirectionItem);
+        });
+
+        // remove direction
+        document.getElementById('recipe-form').addEventListener('click', function (e) {
+            if (e.target.classList.contains('negative')) {
+                e.target.parentElement.remove();
+            }
+        });
+
+        // handle form submission and store form data in a recipe dictionary
+        document.getElementById('recipe-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // document selectors
+            const recipeTitle = document.getElementById('recipe-name').value;
+            const pictureLink = document.getElementById('recipe-image').value;
+            const ingredients = Array.from(document.querySelectorAll('.ingredient')).map(input => input.value);
+            const directions = Array.from(document.querySelectorAll('.direction')).map(input => input.value);
+
+            // Create a recipe object
+            const recipe = {
+                recipeTitle,
+                pictureLink,
+                ingredients,
+                directions
+            };
+
+            // Store the recipe in localStorage
+            localStorage.setItem('recipe', JSON.stringify(recipe));
+
+            // Redirect to the View Recipe page
+            window.location.href = 'view-recipe.html';
+        });
+    </script>
+
+</html>

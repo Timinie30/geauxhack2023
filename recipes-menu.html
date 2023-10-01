@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Recipe Menu</h1>
+    <div id="recipe-list"></div>
+    <a href="add-recipe.html">+</a>
+  </body>
+  <script defer>
+    window.onload = resetStage();
+
+    function resetStage() {
+      const JSONArray = localStorage.getItem("recipeList");
+
+      const recipeList = JSON.parse(JSONArray);
+      console.log(recipeList.length);
+
+      let cardContainer = document.getElementById("recipe-list");
+
+      recipeList.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        const title = document.createElement("h2");
+        title.textContent = item.recipeTitle;
+
+        const img = document.createElement("img");
+        img.src = item.pictureLink;
+        img.alt = "Card Image";
+
+        const ingredients = document.createElement("p");
+        ingredients.textContent = item.ingredients;
+
+        const directions = document.createElement("p");
+        directions.textContent = item.directions;
+
+        card.appendChild(title);
+        card.appendChild(img);
+        card.appendChild(ingredients);
+        card.appendChild(directions);
+
+        cardContainer.appendChild(card);
+      });
+    }
+  </script>
+</html>

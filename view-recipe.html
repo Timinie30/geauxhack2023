@@ -1,0 +1,137 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="recipe.css" text="text/css"/>
+    </head>
+    <div class = "recipetitle">
+    </div>
+    <div class = "picture">
+        <img id='recipe-picture', src="https://picsum.photos/500" alt = "Picture of food" >
+    </div>
+    
+    <body>
+        <h1 id='recipe-title'></h1>
+        <div>
+            <div id="column">
+                <div class="ingredients">
+                    <p>
+                        Ingredients:
+                    </p>
+                </div>
+                <div class= "directions">
+                    <p>
+                        Directions:
+                    </p>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </body>
+
+
+
+    
+    <script>
+        // Retrieve recipe data from the localStorage
+        const recipe = JSON.parse(localStorage.getItem('recipe'));
+
+        // Display recipe data on the page
+        if (recipe) {
+            document.getElementById('recipe-title').textContent = recipe.recipeTitle;
+            document.getElementById('recipe-picture').src = recipe.pictureLink;
+
+            const ingredientsList = document.getElementById('recipe-ingredients');
+            recipe.ingredients.forEach(ingredient => {
+                const listItem = document.createElement('li');
+                listItem.textContent = ingredient;
+                ingredientsList.appendChild(listItem);
+            });
+
+            const directionsList = document.getElementById('recipe-directions');
+            recipe.directions.forEach(direction => {
+                const listItem = document.createElement('li');
+                listItem.textContent = direction;
+                directionsList.appendChild(listItem);
+            });
+        } else {
+            alert('Recipe data not found.');
+            window.location.href = 'add-recipe.html';
+        }
+    </script>
+</body>
+</html>
+
+
+    <!-- <style> 
+        <head>
+    <title>View Recipe</title>
+</head>
+<body>
+    <rectangle>Recipe Details</rectangle>
+    <div>
+        <h2 id="recipe-title"></h2>
+        <img id="recipe-picture" src="https://picsum.photos/500" alt="Recipe Picture">
+    </div>
+    <div>
+        <h3>Ingredients:</h3>
+        <ul id="recipe-ingredients"></ul>
+    </div>
+    <div>
+        <h3>Directions:</h3>
+        <ol id="recipe-directions"></ol>
+    </div>
+    <a href="add-recipe.html">Back to Menu</a>
+        html{
+            background-color: #fbf7f5;
+
+        }
+        body {
+            font-family:'Brush Script MT', 'Brush Script Std', cursive;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        rectangle {
+            width:200px;
+            height:300px;
+            background-color:white;
+            position:absolute;
+            
+            top:60%;
+            justify-content: center;
+            transform:translate(-50%,-50%);
+            text-size-adjust: 100px;
+        }
+        h1 {
+            background-color: whitesmoke;
+                font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+                font-size: xx-large;
+                text-align: center;        
+            }
+         h3
+            {color:  gray;
+                font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+                font-size: x-large;
+                text-align: left;     
+             }
+        img {
+            float: left
+        
+                margin-right:80%;
+                width: 300px;
+                height: 300px;
+                border-radius: 100%;
+                overflow: hidden;
+                background-color: blue;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+    -->
